@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Imdb Movies Ratings Count Search</title>
+  <!-- Link to Tailwind CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css">
+  <!-- Link to Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <style>
+    /* Your custom styles here */
+  </style>
+</head>
+<body>
+  <div class="container mx-auto">
+<style>
+  .border-black {
+    border: 2px solid black;
+    padding: 10px;
+  }
+</style>
+
+<h1 class="text-center text-4xl font-bold my-8 border-black">Imdb Movies Live Ratings Search</h1>
+
+    <div class="flex items-center my-4">
+      <input type="text" id="searchInput" class="form-control w-3/4 mr-2" placeholder="Search for a movie...">
+      <button id="searchBtn" class="btn btn-success">Search</button>
+    </div>
+    <table id="movies" class="table table-striped">
+      <thead>
+        <tr>
+          <th>Movie Title:</th>
+          <th>Movie Rating:</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+  </div>
+  <script>
+  const moviesTable = document.getElementById('movies');
+    const searchInput = document.getElementById('searchInput');
+    const searchBtn = document.getElementById('searchBtn');
+ let movies = [
+        {title: 'The Godfather', rating: 9.1},
+  {title: 'The Godfather: Part II', rating: 9.0},
+  {title: 'The Dark Knight', rating: 9.0},
+  {title: '12 Angry Men', rating: 8.9},
+  {title: 'Schindler\'s List', rating: 8.9},
+  {title: 'The Lord of the Rings: The Return of the King', rating: 8.9},
+  {title: 'Pulp Fiction', rating: 8.9},
+  {title: 'The Good, the Bad and the Ugly', rating: 8.8},
+  {title: 'The Lord of the Rings: The Fellowship of the Ring', rating: 8.8},
+  {title: 'Forrest Gump', rating: 8.8},
+  {title: 'Fight Club', rating: 8.8},
+  {title: 'Inception', rating: 8.7},
+  {title: 'The Lord of the Rings: The Two Towers', rating: 8.7},
+  {title: 'Star Wars: Episode V - The Empire Strikes Back', rating: 8.7},
+  {title: 'The Matrix', rating: 8.6},
+  {title: 'Goodfellas', rating: 8.6},
+  {title: 'One Flew Over the Cuckoo\'s Nest', rating: 8.6},
+  {title: 'Seven Samurai', rating: 8.6},
+  {title: 'Se7en', rating: 8.6},
+  {title: 'City of God', rating: 8.6},
+  {title: 'The Silence of the Lambs', rating: 8.6},
+  {title: 'It\'s a Wonderful Life', rating: 8.6},
+  {title: 'Saving Private Ryan', rating: 8.5},
+  {title: 'Interstellar', rating: 8.5},
+  {title: 'Life is Beautiful', rating: 8.5},
+  {title: 'The Green Mile', rating: 8.5},
+  {title: 'Léon: The Professional', rating: 8.5},
+  {title: 'Spirited Away', rating: 8.5},
+  {title: 'American History X', rating: 8.5},
+  {title: 'The Usual Suspects', rating: 8.5},
+  {title: 'Harakiri', rating: 8.5},
+  {title: 'The Prestige', rating: 8.5},
+  {title: 'Terminator 2: Judgment Day', rating: 8.5},
+  {title: 'Gladiator', rating: 8.5},
+  {title: 'The Lion King', rating: 8.5},
+  {title: 'Once Upon a Time in the West', rating: 8.5},
+  {title: 'Back to the Future', rating: 8.5},
+  {title: 'Psycho', rating: 8.5},
+  {title: 'The Departed', rating: 8.5},
+  {title: 'Grave of the Fireflies', rating: 8.5},
+  {title: 'The Intouchables', rating: 8.5},
+  {title: 'Whiplash', rating: 8.5},
+  {title: 'Cinema Paradiso', rating: 8.5},
+  {title: 'Rear Window', rating: 8.5},
+  {title: 'Modern Times', rating: 8.5},
+  {title: 'City Lights',  rating: 8.5},
+  {title: 'Avengers: Endgame', rating: 8.4},
+  {title: 'joker', rating: 8.4},
+  {title: 'Spider-Man: Into the Spider-Verse', rating: 8.4},
+  {title: 'Raiders of the Lost Ark', rating: 8.4},
+  {title: 'Your Name.', rating: 8.4},
+  {title: 'Anbe Sivam', rating: 8.8},
+{title: 'Nayakan', rating: 8.7},
+{title: 'Pariyerum Perumal', rating: 8.7},
+{title: 'Anand', rating: 8.6},
+{title: 'Golmaal', rating: 8.6},
+{title: 'C/o Kancharapalem', rating: 8.6},
+{title: 'Kireedam', rating: 8.5},
+{title: 'Manichitrathazhu', rating: 8.5},
+{title: 'Thevar Magan', rating: 8.5},
+{title: 'Black Friday', rating: 8.5},
+{title: '3 Idiots', rating: 8.4},
+{title: 'Taare Zameen Par', rating: 8.4},
+{title: 'Dangal', rating: 8.4},
+{title: 'Visaaranai', rating: 8.4},
+{title: 'Vikram Vedha', rating: 8.4},
+{title: 'Jaane Bhi Do Yaaro', rating: 8.3},
+{title: 'Pyaasa', rating: 8.3},
+{title: 'Kahaani', rating: 8.3},
+{title: 'Mughal-E-Azam', rating: 8.2},
+{title: 'Drishyam', rating: 8.2},
+{title: 'Andaz Apna Apna', rating: 8.2},
+{title: 'Guide', rating: 8.2},
+{title: 'Thalapathi', rating: 8.2},
+{title: 'Lagaan', rating: 8.1},
+{title: 'Roja', rating: 8.1},
+{title: 'Sholay', rating: 8.1},
+{title: 'Dil Chahta Hai', rating: 8.1},
+{title: 'Masaan', rating: 8.1},
+{title: 'Gully Boy', rating: 8.1},
+{title: 'Mahanati', rating: 8.1},
+{title: 'Pushpaka Vimana', rating: 8.0},
+{title: 'Kannathil Muthamittal', rating: 8.0},
+{title: 'Apur Sansar', rating: 8.0},
+{title: 'Swades', rating: 8.0},
+{title: 'Bhaag Milkha Bhaag', rating: 8.0},
+{title: 'Barfi!', rating: 8.0},
+{title: 'Udaan', rating: 8.0},
+{title: 'Zindagi Na Milegi Dobara', rating: 8.0},
+{title: 'Super Deluxe', rating: 8.0},
+{title: 'Maheshinte Prathikaaram', rating: 8.0},
+{title: 'Chupke Chupke', rating: 8.6},
+{title: 'Hera Pheri', rating: 8.0},
+{title: 'Kumbalangi Nights', rating: 8.0},
+{title: 'Nayattu', rating: 8.0},
+{title: 'Thani Oruvan', rating: 8.0},
+{title: 'Kaala', rating: 7.9},
+{title: 'Kabhi Haan Kabhi Naa', rating: 7.9},
+{title: 'Sarpatta Parambarai', rating: 7.9},
+{title: 'Article 15', rating: 7.9},
+{title: 'Baasha', rating: 7.9},
+  ];
+	
+  // Render the movies table
+    function renderMovies(movies) {
+      const tbody = moviesTable.getElementsByTagName('tbody')[0];
+      tbody.innerHTML = '';
+      for (let i = 0; i < movies.length; i++) {
+        const movie = movies[i];
+        const tr = document.createElement('tr');
+        const titleTd = document.createElement('td');
+        titleTd.textContent = movie.title;
+        const ratingTd = document.createElement('td');
+        ratingTd.textContent = movie.rating;
+        tr.appendChild(titleTd);
+        tr.appendChild(ratingTd);
+        tbody.appendChild(tr);
+      }
+    }
+ // Filter the movies based on the search query
+    function filterMovies(query) {
+      return movies.filter(movie => movie.title.toLowerCase().includes(query.toLowerCase()));
+    }
+// Handle the search button click
+    searchBtn.addEventListener('click', () => {
+      const query = searchInput.value;
+     const filtered = filterMovies(query);
+renderMovies(filtered);
+});
+// Render the initial movies table
+</script>
+<!-- Link to Bootstrap JavaScript -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<p align="center">
+  <div align="center">
+    <img
+        src="https://readme-typing-svg.herokuapp.com?font=GlossAndBloom&size=30&duration=4997&color=993300&background=FF673200&center=true&vCenter=true&lines=WELCOME+TO+IMDB+MOVIES+;RATING+COUNT+SEARCH+;IT+WILL+SEARCH+ONLY+;TOP+100+RATED+IMDB+;AND+INDIAN+MOVIES+;SEARCH+WITH+CORRECT;+MOVIE+SPELLING+;RATINGS+WILL+INCREASE+;TIME+TO+TIME+;JUST+FOR+PRACTICE+;I+MADE+IT"
+            alt="Typing SVG"
+        />
+    </a>
+</p>
+</div>
+<style>
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+</head>
+<body>
+<img src="https://imgtr.ee/images/2023/05/05/aQa0Y.png" alt="Image description" width="500" height="300">
+</body>
+</html>
+
