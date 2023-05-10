@@ -1,4 +1,7 @@
 # Imdb-Movies-Ratings-Count-Search
+
+"𝙄 𝙪𝙨𝙚𝙙 𝘼𝙄 𝙩𝙤 𝙞𝙢𝙥𝙧𝙤𝙫𝙚 𝙢𝙮 𝙬𝙤𝙧𝙠".
+
 IMDb movie ratings and their corresponding rating counts for movies in different languages. I'll be taking 20 movies as examples.
 
 Search Here
